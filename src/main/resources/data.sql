@@ -1,0 +1,9 @@
+INSERT INTO PRODUCT_TABLE values(1,'Gaming','GTX 1080',1000)
+INSERT INTO PRODUCT_TABLE values(2,'Gaming','RTX 2080',1000)
+INSERT INTO PRODUCT_TABLE values(3,'Gaming','HyperX',1000)
+INSERT INTO PRODUCT_TABLE values(4,'Gaming','DeathAdder',1000)
+INSERT INTO PRODUCT_TABLE values(5,'Gaming','i7 7700k',1000)
+INSERT INTO PRODUCT_TABLE values(6,'Mobile','Iphone Xs',1000)
+INSERT INTO Role values(0,'ROLE_USER')
+INSERT INTO Role values(1,'admin')
+

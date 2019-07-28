@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+<body>
+<div th:replace="/fragments/header :: navbar"/>
+
+
+
+
+</body>
+
+<table cellpadding="2" cellspacing="2" border="1">
+    <tr>
+
+        <th>Name</th>
+        <th>Price</th>
+        <th>Buy</th>
+    </tr>
+    <tbody th:each="user : ${products}" th:remove="tag">
+    <tr>
+        <td th:text="${user.nameOfProduct}"></td>
+        <td th:text="${user.priceOfProduct}"></td>
+        <td align="center">
+
+
+            <a th:href="@{'/products/buy/{name}'(name=${user.nameOfProduct})}">Buy Now</a><br>
+        </td>
+    </tr>
+    <tr>
+
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
