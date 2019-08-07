@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header :: header"/>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="/css/profilepage.css" media="all" rel="stylesheet" type="text/css">
+    <div th:replace="/fragments/header :: header"/>
+
+</head>
+<body>
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
+                <img src="https://www.svgimages.com/svg-image/s5/man-passportsize-silhouette-icon-256x256.png" alt="stack photo" class="img">
+            </div>
+            <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
+                <div class="container" style="border-bottom:1px solid black">
+                    <h2 th:text="${user.get().getUsername()}"></h2>
+                </div>
+                <hr>
+                <ul class="container details">
+                    <li><p><span style="width:50px;">Points:</span>+91 90000 00000</p></li>
+                    <li><p><span style="width:50px;">Email:</span>somerandom@email.com</p></li>
+                    <tbody th:each="s : ${user.get().getRoles()}" th:remove="tag">
+                    <li>Role:<p><span th:text="${s.getRole()}" style="width:50px;"></span></p></li>
+                    </tbody>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

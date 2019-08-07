@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en"
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+
     <div th:fragment="header">
         <title>Bootstrap Example</title>
         <meta charset="utf-8">
@@ -8,64 +11,99 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <style>
+
+            .dropdown:hover .dropdown-menu {
+                display: block;
+            }
+        </style>
+
     </div>
+
+
 </head>
 <body>
+
 <div th:fragment="navbar">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">WebSiteName</a>
+                <a class="navbar-brand" href="/">Digital Ocean</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a th:href="@{'/products/{name}'(name=Gaming)}">Gaming</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">TV<span class="caret"></span></a>
+
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"  th:onclick="'window.location.href = \'' + @{'/products/{name}'(name=TV)} + '\''">TV<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Samsung</a></li>
-                        <li><a href="#">LGD</a></li>
-                        <li><a href="#">Siemens</a></li>
+                        <li><a href="#">LG</a></li>
+                        <li><a href="#">Philips</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Mobile</a></li>
+
+
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"  th:onclick="'window.location.href = \'' + @{'/products/{name}'(name=Gaming)} + '\''">Gaming<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{'/products/category/{name}' (name=Gamingcomputer)}">Gamingdator</a></li>
+                        <li><a th:href="@{'/products/category/{name}' (name=Gamingstol)}">Gamingstol</a></li>
+                        <li><a th:href="@{'/products/category/{name}' (name=Gaminglaptop)}">Gaminglaptop</a></li>
+                    </ul>
+                </li>
+
+
+
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"  th:onclick="'window.location.href = \'' + @{'/products/{name}'(name=Mobilt)} + '\''">Mobilt<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Ipad</a></li>
+                        <li><a href="#">Iphone</a></li>
+                        <li><a href="#">Samsung</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"  th:onclick="'window.location.href = \'' + @{'/products/{name}'(name=Konsol)} + '\''">Konsoler<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Playstation</a></li>
+                        <li><a href="#">Xbox</a></li>
+                        <li><a href="#">Nitendo</a></li>
+                    </ul>
+                </li>
+
+
+
+
+
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
 
-                <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
+                   <li><a href="/profilepage" sec:authentication="name"></a></li>
+                </ul>
+
+                <li><a th:href="@{'/shoppingcart/'}">Cart</a></li>
+
+                <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
+                    <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                </ul>
+                <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li><a th:href="@{/registration}"><span class="glyphicon glyphicon-log-in"></span>Skapa konto</a></li>
+                </ul>
+
 
             </ul>
-        </div>
-        <div id="id01" class="modal">
-
-                <div class="imgcontainer">
-                    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                    <img src="img_avatar2.png" alt="Avatar" class="avatar">
-                </div>
-
-                <div class="container">
-                    <div th:replace="/login :: logi"/>
-                </div>
-                <div class="container" style="background-color:#f1f1f1">
-                    <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                    <span class="psw">Forgot <a href="#">password?</a></span>
-                </div>
-
-
 
         </div>
+
     </nav>
 
-</div>
-<script>
-    // Get the modal
-    var modal = document.getElementById('id01');
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
+
+
+
+</div>
+
 </body>
 </html>

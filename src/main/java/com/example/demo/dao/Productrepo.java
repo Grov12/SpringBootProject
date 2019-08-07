@@ -12,6 +12,10 @@ public interface Productrepo extends JpaRepository<Product,Integer> {
 
     Optional<Product> findByNameOfProduct(String name);
 
+    Optional<Product> findById(int id);
+
+    List<Product> findBySubCategory(String name);
+
 
 
 

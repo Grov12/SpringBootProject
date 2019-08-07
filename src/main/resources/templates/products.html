@@ -1,38 +1,51 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <div th:replace="/fragments/header :: header"/>
+
+    <link href="/css/tableproducts.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/css/itemdisplay.css" rel="stylesheet" type="text/css" media="all">
+
 </head>
 <body>
 <div th:replace="/fragments/header :: navbar"/>
 
 
+<div id="container" class="container">
+    <ul>
+        <tbody th:each="user : ${products}" th:remove="tag">
+        <li id class="text--center">
+            <div class="block-container">
+                <div class="block-container__image">
+                    <a href="#" class="text--center">
+                        <img data-sizes="auto" data-src="https://static.coolshop.com/apocalypse/pages/playstation-4_cooluk763076805.jpg" class="lazyautosizes lazyloaded" alt="None" sizes="129px" th:src="${user.imageName}">
+
+                    </a>
+
+                </div>
+
+                <div class="element-description"><a th:href="@{'/itemdetail/{name}' (name=${user.nameOfProduct})}" th:text="${user.nameOfProduct}">
 
 
+
+                </a>
+                </div>
+                <div class="element-price" th:text="${user.priceOfProduct} + SEK">
+
+                </div>
+
+
+            </div>
+
+        </li>
+        </tbody>
+
+    </ul>
+</div>
 </body>
 
-<table cellpadding="2" cellspacing="2" border="1">
-    <tr>
-
-        <th>Name</th>
-        <th>Price</th>
-        <th>Buy</th>
-    </tr>
-    <tbody th:each="user : ${products}" th:remove="tag">
-    <tr>
-        <td th:text="${user.nameOfProduct}"></td>
-        <td th:text="${user.priceOfProduct}"></td>
-        <td align="center">
 
 
-            <a th:href="@{'/products/buy/{name}'(name=${user.nameOfProduct})}">Buy Now</a><br>
-        </td>
-    </tr>
-    <tr>
-
-    </tr>
-    </tbody>
-</table>
-
-</body>
 </html>

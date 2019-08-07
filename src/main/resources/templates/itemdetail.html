@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link href="/css/itemdetailstyle.css" rel="stylesheet" type="text/css" media="all">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+<main class="container">
+
+    <div class="left-column">
+        <img th:src="${product.get().getImageName()}">
+
+    </div>
+
+
+<div class="right-column">
+
+    <div class="product-description">
+    <span th:text="${product.get().getSubCategory()}"></span>
+        <h1 th:text="${product.get().getNameOfProduct()}"></h1>
+        <p>This product does not have a description yet.</p>
+    </div>
+</div>
+
+    <div class="product-price">
+        <span>$144</span>
+        <a th:href="@{'/products/buy/{name}' (name=${product.get().getNameOfProduct()})}" class="cart-btn">Add to cart</a>
+    </div>
+
+
+</main>
+
+</body>
+</html>

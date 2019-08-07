@@ -6,4 +6,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface RoleRepo extends JpaRepository<Role,Integer> {
     Role findByRole(@Param("role") String role);
+
+  
 }

@@ -21,6 +21,8 @@
     <tr>
         <td th:text="${product.getKey().nameOfProduct}"></td>
         <td th:text="${product.getKey().priceOfProduct}"></td>
+        <td th:text="${product.getValue()}"></td>
+        <td><a th:href="@{'/products/remove/{name}' (name=${product.getKey().nameOfProduct})}">Remove from cart</a> </td>
         <td align="center">
 
 
@@ -31,7 +33,10 @@
 
 
     </tbody>
+
 </table>
+
+<div class="price-container" th:text="${totalprice}"></div>
 
 
 

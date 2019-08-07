@@ -6,16 +6,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
 @Configuration
-@EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${spring.queries.users-query}")
@@ -34,7 +32,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${spring.queries.roles-query}")
     private String rolesQuery;
 
-
     @Autowired
     public SpringSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -42,7 +39,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/css/**");
+        web.ignoring().antMatchers("/scripts/**");
+        web.ignoring().antMatchers("/images/**");
+    }
+
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+
+
         auth.inMemoryAuthentication()
                 .withUser("admin")
                 .password(passwordEncoder().encode("admin"))
@@ -54,19 +61,21 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/products/Gaming","/test","/products/Mobile","/products/TV","/registration","/h2-console/**").permitAll()
+                .antMatchers("/","/resources/**", "/static/images/**","/products/**","/error","/h2-console/**","/itemdetail/**","/registration/**","/shoppingcart/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 .logout()
+                .logoutSuccessUrl("/")
                 .permitAll()
                 .and().headers().frameOptions().disable();
 
